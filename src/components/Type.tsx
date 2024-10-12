@@ -16,7 +16,6 @@ export const Type = () => {
   } = useTypingHandler(text);
 
   const resetButtonRef = useRef<HTMLButtonElement>(null);
-  console.log('text:', text);
 
   return (
     <div className='flex flex-col gap-4'>

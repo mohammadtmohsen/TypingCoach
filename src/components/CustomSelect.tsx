@@ -59,6 +59,7 @@ const CustomSelect: React.FC<StyledSelectProps> = ({
       options={options}
       placeholder={placeholder}
       styles={customStyles}
+      menuPlacement='auto'
     />
   );
 };

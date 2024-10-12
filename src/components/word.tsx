@@ -16,7 +16,7 @@ export const Word = ({
   const isPassedWord = wordIndex < activeWordIndex;
 
   return (
-    <span className='xinline border-b border-b-gray-600 py-1 whitespace-nowrap'>
+    <span className='border-b border-b-gray-600 py-1 whitespace-nowrap'>
       {[...word.split(''), ' '].map((char, index) => {
         if (char === '\n') {
           return <br key={index} className='w-full h-0' />;

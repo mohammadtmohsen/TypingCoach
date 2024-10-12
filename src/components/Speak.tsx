@@ -56,7 +56,8 @@ const Speak = ({ text }: { text: string }) => {
             key={index}
             onClick={() => handleSpeak(index)}
             className={clsx(
-              index === currentWordIndex ? 'bg-blue-900' : 'transparent'
+              index === currentWordIndex ? 'bg-blue-900' : 'transparent',
+              'cursor-pointer'
             )}
           >
             {word}{' '}

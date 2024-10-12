@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react';
-import useTypingHandler from './hooks/useTypingHandler';
-import Word from './components/word';
+import { useState } from 'react';
 import Speak from './components/Speak';
+import { Read } from './components/Read';
 
 function App() {
   const originalText =
@@ -9,21 +8,9 @@ function App() {
 
   const [text, setText] = useState<string>(originalText);
 
-  const resetButtonRef = useRef<HTMLButtonElement>(null);
-
-  const {
-    activeWordIndex,
-    activeCharIndex,
-    error,
-    setError,
-    setActiveWordIndex,
-    setActiveCharIndex,
-    textRef,
-  } = useTypingHandler(text);
-
   return (
     <div className='flex flex-col gap-4 w-full'>
-      <h1 className='uppercase'>typing</h1>
+      <h1 className='uppercase'>Typing Coach</h1>
       <textarea
         value={text}
         onChange={(e) => {
@@ -33,37 +20,9 @@ function App() {
         className='p-4 rounded-md w-full h-32'
       />
 
-      {/* <Speak text={text} /> */}
       <Speak text={text} />
 
-      <div
-        className='flex flex-wrap border rounded-md p-4 gap-y-4'
-        ref={textRef}
-        tabIndex={0}
-      >
-        {text.split(' ').map((word, wordIndex) => (
-          <Word
-            key={wordIndex}
-            word={word}
-            wordIndex={wordIndex}
-            activeWordIndex={activeWordIndex}
-            activeCharIndex={activeCharIndex}
-            error={error}
-          />
-        ))}
-      </div>
-
-      <button
-        ref={resetButtonRef}
-        onClick={() => {
-          setActiveWordIndex(0);
-          setActiveCharIndex(0);
-          setError(false);
-          resetButtonRef.current?.blur();
-        }}
-      >
-        reset
-      </button>
+      <Read text={text} />
     </div>
   );
 }

@@ -1,0 +1,2 @@
+export const DEFAULT_TEXT =
+  'Geology is the study of rocks, Earth, and how our planet changes over time. Geologists are like detectives, investigating what Earth is made of and how things like mountains, rivers, and volcanoes form. They explore different types of rocks, from shiny crystals to rough stones, and learn about fossils, which are the remains of plants and animals from millions of years ago. Geology helps us understand Earth’s past and predict changes like earthquakes and landslides, making it super important for keeping people and nature safe!';

@@ -4,7 +4,12 @@ import errorAudio from '../assets/error.mp3';
 import windAudio from '../assets/wind.mp3';
 
 const useTypingHandler = (originalText: string) => {
-  const words = originalText.split(' ').map((word) => word + ' ');
+  console.log('originalText:', originalText);
+
+  const words = originalText.split(' ').map((word) => {
+    return word + ' ';
+  });
+
   const [activeWordIndex, setActiveWordIndex] = useState<number>(0);
   const [activeCharIndex, setActiveCharIndex] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
@@ -22,7 +27,7 @@ const useTypingHandler = (originalText: string) => {
         typedChar === 'ArrowLeft'
       )
         return;
-      if (e.key === ' ') {
+      if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
       }
       if (typedChar === 'Backspace' || typedChar === 'Delete') {
@@ -36,6 +41,24 @@ const useTypingHandler = (originalText: string) => {
         setError(false);
         return;
       }
+      // Check if the current character is '\n' and the user pressed 'Enter'
+      if (currentWord[activeCharIndex] === '\n') {
+        if (typedChar === 'Enter') {
+          setError(false);
+          if (activeCharIndex < currentWord.length - 1) {
+            setActiveCharIndex((prevIndex) => prevIndex + 1);
+          } else if (activeWordIndex < words.length - 1) {
+            setActiveWordIndex((prevIndex) => prevIndex + 1);
+            setActiveCharIndex(0);
+          }
+          new Audio(clickAudio).play();
+        } else {
+          new Audio(errorAudio).play();
+          setError(true);
+        }
+        return;
+      }
+
       if (typedChar === currentWord[activeCharIndex]) {
         setError(false);
         if (activeCharIndex < currentWord.length - 1) {

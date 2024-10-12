@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-const Character = ({
+export const Character = ({
   char,
   index,
   activeCharIndex,
@@ -29,5 +29,3 @@ const Character = ({
     </span>
   );
 };
-
-export default Character;

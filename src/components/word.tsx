@@ -1,6 +1,6 @@
-import Character from './Character';
+import { Character } from './Character';
 
-const Word = ({
+export const Word = ({
   word,
   wordIndex,
   activeWordIndex,
@@ -16,19 +16,24 @@ const Word = ({
   const isPassedWord = wordIndex < activeWordIndex;
 
   return (
-    <span className='flex flex-wrap border-b border-b-gray-600 xpy-1'>
-      {[...word.split(''), ' '].map((char, index) => (
-        <Character
-          key={index}
-          char={char}
-          index={index}
-          activeCharIndex={wordIndex === activeWordIndex ? activeCharIndex : -1}
-          error={wordIndex === activeWordIndex && error}
-          isPassedWord={isPassedWord}
-        />
-      ))}
+    <span className='xinline border-b border-b-gray-600 py-1 whitespace-nowrap'>
+      {[...word.split(''), ' '].map((char, index) => {
+        if (char === '\n') {
+          return <br key={index} className='w-full h-0' />;
+        }
+        return (
+          <Character
+            key={index}
+            char={char}
+            index={index}
+            activeCharIndex={
+              wordIndex === activeWordIndex ? activeCharIndex : -1
+            }
+            error={wordIndex === activeWordIndex && error}
+            isPassedWord={isPassedWord}
+          />
+        );
+      })}
     </span>
   );
 };
-
-export default Word;

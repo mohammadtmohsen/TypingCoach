@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 import useTypingHandler from '../hooks/useTypingHandler';
-import Word from './word';
+import { Word } from './word';
+import { useTextContext } from '../hooks/useTextContext';
 
-export const Read = ({ text }: { text: string }) => {
+export const Type = () => {
+  const { text } = useTextContext();
   const {
     activeWordIndex,
     activeCharIndex,
@@ -14,11 +16,12 @@ export const Read = ({ text }: { text: string }) => {
   } = useTypingHandler(text);
 
   const resetButtonRef = useRef<HTMLButtonElement>(null);
+  console.log('text:', text);
 
   return (
-    <div className='flex flex-col gap-4 '>
+    <div className='flex flex-col gap-4'>
       <div
-        className='flex flex-wrap border rounded-md p-4 gap-y-4'
+        className='border rounded-md p-4 whitespace-pre-wrap break-words'
         ref={textRef}
         tabIndex={0}
       >
@@ -34,17 +37,20 @@ export const Read = ({ text }: { text: string }) => {
         ))}
       </div>
 
-      <button
-        ref={resetButtonRef}
-        onClick={() => {
-          setActiveWordIndex(0);
-          setActiveCharIndex(0);
-          setError(false);
-          resetButtonRef.current?.blur();
-        }}
-      >
-        reset
-      </button>
+      <div className='flex justify-end'>
+        <button
+          className='clickable'
+          ref={resetButtonRef}
+          onClick={() => {
+            setActiveWordIndex(0);
+            setActiveCharIndex(0);
+            setError(false);
+            resetButtonRef.current?.blur();
+          }}
+        >
+          reset
+        </button>
+      </div>
     </div>
   );
 };
